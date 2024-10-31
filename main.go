@@ -8,7 +8,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"math"
 	"net"
 	"net/http"
@@ -115,7 +114,7 @@ type SongInfo struct {
 
 func loadConfig() error {
 	// 读取config.yaml文件内容
-	data, err := ioutil.ReadFile("config.yaml")
+	data, err := os.ReadFile("config.yaml")
 	if err != nil {
 		return err
 	}
@@ -1384,7 +1383,7 @@ func writeCover(sanAlbumFolder, name string, url string) error {
 	}
 	defer do.Body.Close()
 	if do.StatusCode != http.StatusOK {
-		errors.New(do.Status)
+		return errors.New(do.Status)
 	}
 	f, err := os.Create(covPath)
 	if err != nil {
@@ -1430,7 +1429,7 @@ func rip(albumId string, token string, storefront string, userToken string) erro
 	}
 	meta, err := getMeta(albumId, token, storefront)
 	if err != nil {
-		fmt.Println("Failed to get album metadata.\n")
+		fmt.Println("Failed to get album metadata.")
 		return err
 	}
 	var singerFoldername string
@@ -1474,7 +1473,7 @@ func rip(albumId string, token string, storefront string, userToken string) erro
 				fmt.Println("Failed to get manifest.\n", err)
 			} else {
 				if manifest1.Attributes.ExtendedAssetUrls.EnhancedHls == "" {
-					fmt.Println("Unavailable.\n")
+					fmt.Println("Unavailable.")
 				} else {
 					needCheck := false
 
@@ -2160,7 +2159,7 @@ func checkM3u8(b string, f string) (string, error) {
 			}
 			defer do.Body.Close()
 
-			Checkbody, err := ioutil.ReadAll(do.Body)
+			Checkbody, err := io.ReadAll(do.Body)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -2446,7 +2445,7 @@ func extractSong(url string) (*SongInfo, error) {
 			BarEnd:        "",
 		}),
 	)
-	rawSong, err := ioutil.ReadAll(io.TeeReader(track.Body, bar))
+	rawSong, err := io.ReadAll(io.TeeReader(track.Body, bar))
 	if err != nil {
 		return nil, err
 	}
