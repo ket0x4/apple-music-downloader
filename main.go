@@ -51,9 +51,9 @@ var (
 type Config struct {
 	MediaUserToken          string `yaml:"media-user-token"`
 	AuthorizationToken      string `yaml:"authorization-token"`
-	Language		string `yaml:"language"`
+	Language                string `yaml:"language"`
 	SaveLrcFile             bool   `yaml:"save-lrc-file"`
-	LrcType              string `yaml:"lrc-type"`
+	LrcType                 string `yaml:"lrc-type"`
 	LrcFormat               string `yaml:"lrc-format"`
 	SaveAnimatedArtwork     bool   `yaml:"save-animated-artwork"`
 	EmbyAnimatedArtwork     bool   `yaml:"emby-animated-artwork"`
@@ -86,15 +86,18 @@ type Config struct {
 
 var config Config
 var txtpath string
-//统计结果
+
+// 统计结果
 var counter Counter
+
 type Counter struct {
 	Unavailable int
-	NotSong int
-	Error int
-	Success int
-	Total int
+	NotSong     int
+	Error       int
+	Success     int
+	Total       int
 }
+
 var okDict = make(map[string][]int)
 
 type SampleInfo struct {
@@ -104,9 +107,9 @@ type SampleInfo struct {
 }
 
 type SongInfo struct {
-	r         io.ReadSeeker
-	alacParam *Alac
-	samples   []SampleInfo
+	r             io.ReadSeeker
+	alacParam     *Alac
+	samples       []SampleInfo
 	totalDataSize int64
 }
 
@@ -1722,7 +1725,7 @@ func rip(albumId string, token string, storefront string, userToken string) erro
 				ttml, err := getSongLyrics(track.ID, storefront, token, userToken)
 				if err != nil {
 					fmt.Println("Failed to get lyrics")
-				} else if config.LrcFormat == "ttml"{
+				} else if config.LrcFormat == "ttml" {
 					if config.SaveLrcFile {
 						lrc = ttml
 						err := writeLyrics(sanAlbumFolder, lrcFilename, lrc)
