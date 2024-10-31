@@ -12,7 +12,7 @@ jobs:
       with:
         go-version: '1.23.2'
     - name: Build
-      run: go build -o main.exe -v ./appleDL.go
+      run: go build -o main.exe -v ./main.go
     - name: Create a new directory and copy files
       run: |
         mkdir alac
@@ -35,7 +35,7 @@ jobs:
       with:
         go-version: '1.23.2'
     - name: Build
-      run: go build -o main -v ./appleDL.go
+      run: go build -o main -v ./main.go
     - name: Create a new directory and copy files
       run: |
         mkdir alac
