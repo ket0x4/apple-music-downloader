@@ -20,12 +20,13 @@ Original script by Sorrow. Modified by me to include some fixes and improvements
 2. Install [this version](https://www.apkmirror.com/apk/apple/apple-music/apple-music-3-6-0-beta-release/apple-music-3-6-0-beta-4-android-apk-download/) of Apple Music. You will also need [SAI](https://f-droid.org/pt_BR/packages/com.aefyr.sai.fdroid/) to install it.
 3. Launch Apple Music and sign in to your account (subscription required).
 4. Port forward 10020 TCP: `adb forward tcp:10020 tcp:10020`.
-5. Start frida server.
+5. [Start frida server.](https://frida.re/docs/android/)
 6. Start the frida agent: `frida -U -l agent.js -f com.apple.android.music`.
-7. Start downloading some albums: `go run main.go URL`.
-8. Start downloading singles: `go run main.go --select URL` (input numbers separated by spaces).
-9. Start downloading some playlists: `go run main.go URL`.
-10. For dolby atmos: `go run main.go --atmos URL`.
+
+7. Build the project: `go build -o appleDL .`.
+- Start downloading some albums / playlists: `./appleDL URL`.
+- Start downloading singles: `./appleDL --select URL` (input numbers separated by spaces).
+- For dolby atmos: `./appleDL --atmos URL`.
 
 ### **Downloading Lyrics**
 1. Open [Apple Music](https://music.apple.com) and log in.
